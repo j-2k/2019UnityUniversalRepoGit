@@ -13439,6 +13439,8 @@ MonoBehaviour:
   currentPoint: 0
   max_velocity: 5
   max_force: 0.2
+  max_speed: 0
+  rotSpeed: 0
 --- !u!54 &1885376559
 Rigidbody:
   m_ObjectHideFlags: 0

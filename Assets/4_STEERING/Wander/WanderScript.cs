@@ -33,22 +33,24 @@ public class WanderScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        wanderRadiusPosition = transform.position + (rb.velocity.normalized * wanderCircleDistance);
+        //Wandering
+        wanderRadiusPosition = transform.position + (rb.velocity.normalized * wanderCircleDistance);    //first set the position of the wander circle to be always placed in front of the object
 
-        targetVec = wanderRadiusPosition + (transform.forward * wanderCircleRadius);
+        targetVec = wanderRadiusPosition + (transform.forward * wanderCircleRadius);                    // have a target velocity that will always point from the center of the circle to the edge of the circle
 
         timer += Time.deltaTime;
-        if (timer >= 0.5)
+        if (timer >= 0.5)                                                                               //each 0.5 seconds this if statement will run and randomize a random angle range between 0 and 360 on the y axis (turning on the y axis) 
         {
-            displacementDir = targetVec - wanderRadiusPosition;
-            displacementDir = Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up) * displacementDir;
+            displacementDir = targetVec - wanderRadiusPosition;                                         //the displacementdirection is taking the vectors mag and setting it to be in the middle of the circle then 
+            displacementDir = Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up) * displacementDir; //going outwards to then be changed by the randomized angle of 0-360 i was talking about previously
             timer = 0;
         }
         Debug.DrawRay(wanderRadiusPosition, displacementDir, Color.white);
 
-        pointOnCircle = wanderRadiusPosition + (displacementDir.normalized * wanderCircleRadius);
-
-        desiredVel = (pointOnCircle - transform.position).normalized * max_velocity;
+        pointOnCircle = wanderRadiusPosition + (displacementDir.normalized * wanderCircleRadius);       //this places a vector 3 point on the edge of the circle by taking the center pos then adding the vector that got changed FROM the angle randomizer
+                                                                                                        //then wherever the vector points it will place a point on the edge of that vector/head of the vector
+        //Seeking
+        desiredVel = (pointOnCircle - transform.position).normalized * max_velocity;                    //then we steer towards the point on the circle
         steering = desiredVel - rb.velocity;
 
         if (steering.magnitude > max_force)
@@ -61,8 +63,8 @@ public class WanderScript : MonoBehaviour
             rb.velocity = rb.velocity.normalized * max_speed;
         }
 
-        rb.velocity += steering;
-        Debug.DrawRay(transform.position, rb.velocity, Color.blue);
+        rb.velocity += steering;                                                                        // this technically should take the velocity vector into account and "add" the magnitudes together when the wander vector changes 
+        Debug.DrawRay(transform.position, rb.velocity, Color.blue);                                     //but it would bug out a lot and this seems much more efficent
         rb.rotation = Quaternion.LookRotation(rb.velocity);
     }
 

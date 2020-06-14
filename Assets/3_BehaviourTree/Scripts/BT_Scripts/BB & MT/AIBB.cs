@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class AIBB : MonoBehaviour
 {
-    //=============//
+    //=====TREE========//
     MainTree root;
     //=============//
 
-    //==========WAYPOINT_VARIABLES==========//
+    //==========WAYPOINT_VARIABLES==========// }BB
     public Transform[] paths;
     public Transform rechargePos;
 
@@ -18,17 +18,18 @@ public class AIBB : MonoBehaviour
 
     public float batteryTimer = 30;
     public float rechargeTimer = 0;
-    //==========WAYPOINT_VARIABLES==========//
+    //==========WAYPOINT_VARIABLES==========// }BB
 
 
     void Start()
     {
+        //TREE CREATION
         //Creating branch nodes into variables
         MainTree roamingUntillFailure = new Untill_Fail();
 
         MainTree chargingSequence = new Sequence();
 
-        //Initializing the Root to begin the AI Behvaiours // Making the Tree
+        //Initializing the Root to begin the AI Behaviours // Making the Tree
         root = new Selector();                                        // first top node is the selector
         root.childrenRef.Add(roamingUntillFailure);                 // 1st CHILD OF THE ROOT SELECTOR NODE, first is the until failure node
         roamingUntillFailure.childrenRef.Add(new Leaf_Roaming());   // now adding a child to the untill failure node which is the roaming code
@@ -42,8 +43,8 @@ public class AIBB : MonoBehaviour
 
     void Update()
     {
-        //=OWNER=//
+        //=TREE=//
         root.Update_Action(this);
-        //=OWNER=//
+        //=TREE=//
     }
 }

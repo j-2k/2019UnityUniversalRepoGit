@@ -6,10 +6,10 @@ public class Untill_Fail : MainTree
 {
     public override void Update_Action(AIBB ai)
     {
-        for (int i = 0; i < childrenRef.Count; i++)
+        for (int i = 0; i < childrenRef.Count; i++)             //Runs all the childrens of the node
         {
             Debug.Log("UNTILL FAILURE NODE (IN FORLOOP)");
-            childrenRef[i].Update_Action(ai);
+            childrenRef[i].Update_Action(ai);                   //
             if (childrenRef[i].curState == Result.Fail)
             {
                 Debug.Log("CHILD RETURNED FAIL & SHOULD GO OUT OF THIS NODE");
