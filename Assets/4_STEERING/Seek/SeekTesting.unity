@@ -247,6 +247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: 5
   max_velocity: 25
+  rb: {fileID: 757801063}
 --- !u!1 &1189737226
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,8 +8,9 @@ public class PlayerMovementTest : MonoBehaviour
 {
     public float playerSpeed;  // 5
     public float max_velocity; // 25
-    
-    Rigidbody rb;
+    [SerializeField] Rigidbody rb;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -40,7 +41,7 @@ public class PlayerMovementTest : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         //Debug
         Debug.DrawRay(transform.position + (transform.up * 3), rb.velocity, Color.black);
